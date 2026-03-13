@@ -46,7 +46,7 @@
 // Inline Service Worker — enables offline use & Add to Home Screen
 if('serviceWorker' in navigator){
   const sw=`
-    const CACHE='clario3-v6';
+    const CACHE='clario3-v7';
     self.addEventListener('install',e=>{
       e.waitUntil(caches.open(CACHE).then(c=>c.add(self.location.pathname)).then(()=>self.skipWaiting()));
     });
@@ -222,10 +222,13 @@ body.dark .matrix-task-row:hover{background:rgba(255,255,255,.14);}
 .tb2{background:var(--blu-l);color:var(--blu);}
 .tp{background:var(--pur-l);color:var(--pur);}
 .tgr{background:var(--surf3);color:var(--t3);}
-.pdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.ph{background:var(--red);/* ● */}.pm{background:var(--amb);border-radius:2px;/* ◼ med */}.pl{background:var(--grn);border-radius:0;/* ▲ low */}
-/* Priority labels (screen reader visible) */
-.pdot::after{content:'';display:none;}
+.pdot{display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;padding:1px 5px;border-radius:10px;flex-shrink:0;letter-spacing:.3px;text-transform:uppercase;min-width:28px;}
+.ph{background:rgba(239,68,68,.15);color:var(--red);}
+.pm{background:rgba(245,158,11,.15);color:var(--amb);}
+.pl{background:rgba(34,197,94,.15);color:var(--grn);}
+.ph::after{content:'High';}
+.pm::after{content:'Med';}
+.pl::after{content:'Low';}
 
 /* ── FORMS ── */
 .fg{margin-bottom:13px;}
@@ -1168,39 +1171,18 @@ body.dark body.dark body.dark body.dark body.dark body.dark
     </div>
   </div>
   <nav class="sb-nav">
-    <div class="sb-sec-hdr" onclick="toggleSbSec('overview')"><span>Overview</span><span class="sb-caret" id="sb-caret-overview">▾</span></div>
-    <div class="sb-sec-body" id="sb-body-overview">
-      <div class="ni active" onclick="nav('dashboard',this)"><span class="ico">🏠</span>Dashboard</div>
-      <div class="ni" onclick="nav('analytics',this)"><span class="ico">📊</span>Analytics</div>
-    </div>
-    <div class="sb-sec-hdr" onclick="toggleSbSec('work')"><span>Work</span><span class="sb-caret" id="sb-caret-work">▾</span></div>
-    <div class="sb-sec-body" id="sb-body-work">
-      <div class="ni" onclick="nav('tasks',this)"><span class="ico">✅</span>Tasks<span class="nb" id="taskBadge">0</span></div>
-      <div class="ni" onclick="nav('projects',this)"><span class="ico">📁</span>Projects</div>
-      <div class="ni" onclick="nav('notes',this)"><span class="ico">📝</span>Notes</div>
-      <div class="ni" onclick="nav('calls',this)"><span class="ico">📞</span>Calls<span class="nb" id="callsBadge" style="background:var(--acc)">0</span></div>
-    </div>
-    <div class="sb-sec-hdr" onclick="toggleSbSec('schedule')"><span>Schedule</span><span class="sb-caret" id="sb-caret-schedule">▾</span></div>
-    <div class="sb-sec-body" id="sb-body-schedule">
-      <div class="ni" onclick="nav('daily',this)"><span class="ico">📋</span>Daily Planner</div>
-      <div class="ni" onclick="nav('calendar',this)"><span class="ico">📅</span>Calendar</div>
-      <div class="ni" onclick="nav('planner',this)"><span class="ico">🗓</span>Planner</div>
-    </div>
-    <div class="sb-sec-hdr" onclick="toggleSbSec('team')"><span>Team</span><span class="sb-caret" id="sb-caret-team">▾</span></div>
-    <div class="sb-sec-body" id="sb-body-team">
-      <div class="ni" onclick="nav('persontasks',this)"><span class="ico">👤</span>Person Tasks</div>
-      <div class="ni" onclick="nav('depttasks',this)"><span class="ico">🏢</span>Dept Tasks</div>
-      <div class="ni" onclick="nav('team',this)"><span class="ico">👥</span>People</div>
-      <div class="ni" onclick="nav('departments',this)"><span class="ico">🏢</span>Departments</div>
-      <div class="ni" onclick="nav('customers',this)"><span class="ico">🏢</span>Customers<span class="nb" id="custBadge" style="background:var(--blu)">0</span></div>
-    </div>
-    <div class="sb-sec-hdr" onclick="toggleSbSec('system')"><span>System</span><span class="sb-caret" id="sb-caret-system">▾</span></div>
-    <div class="sb-sec-body" id="sb-body-system">
-      <div class="ni" onclick="nav('trash',this)"><span class="ico">🗑</span>Trash<span class="nb" id="trashBadge" style="background:var(--red)">0</span></div>
-      <div class="ni" onclick="nav('audit',this)"><span class="ico">📋</span>Audit Log</div>
-      <div class="ni" onclick="nav('admin',this)"><span class="ico">⚙️</span>Admin</div>
-      <div class="ni" onclick="nav('install',this)"><span class="ico">📲</span>Install App</div>
-    </div>
+    <div class="ni active" onclick="nav('dashboard',this)"><span class="ico">🏠</span>Dashboard</div>
+    <div class="ni" onclick="nav('tasks',this)"><span class="ico">✅</span>Tasks<span class="nb" id="taskBadge">0</span></div>
+    <div class="ni" onclick="nav('calls',this)"><span class="ico">📞</span>Calls<span class="nb" id="callsBadge" style="background:var(--acc)">0</span></div>
+    <div class="ni" onclick="nav('schedule',this)"><span class="ico">📅</span>Schedule</div>
+    <div class="ni" onclick="nav('projects',this)"><span class="ico">📁</span>Projects</div>
+    <div class="ni" onclick="nav('notes',this)"><span class="ico">📝</span>Notes</div>
+    <div class="ni" onclick="nav('team',this)"><span class="ico">👥</span>People</div>
+    <div class="ni" onclick="nav('customers',this)"><span class="ico">🤝</span>Customers<span class="nb" id="custBadge" style="background:var(--blu)">0</span></div>
+    <div class="ni" onclick="nav('analytics',this)"><span class="ico">📊</span>Analytics</div>
+    <div style="margin:8px 10px;border-top:1px solid var(--border)"></div>
+    <div class="ni" onclick="nav('trash',this)" style="font-size:12px;color:var(--t4)"><span class="ico">🗑</span>Trash<span class="nb" id="trashBadge" style="background:var(--red)">0</span></div>
+    <div class="ni" onclick="nav('admin',this)" style="font-size:12px;color:var(--t4)"><span class="ico">⚙️</span>Settings</div>
   </nav>
   <div class="sb-foot">
     <div class="u-row">
@@ -1239,12 +1221,14 @@ body.dark body.dark body.dark body.dark body.dark body.dark
           aria-label="Add new item">+ New</button>
         <button onclick="_voiceOpen()" title="Voice capture" aria-label="Voice capture" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);border:none;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;flex-shrink:0">🎙️</button>
         <!-- Quick-add popover (shown on dashboard when no specific action) -->
-        <div id="quickAddPop" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surf);border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:200;min-width:240px;white-space:nowrap">
-          <div style="font-size:11px;font-weight:700;color:var(--t3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Quick add task</div>
-          <div style="display:flex;gap:6px;align-items:center">
-            <input id="quickInput" placeholder="Task name… press Enter" onkeydown="quickAdd(event)"
-              style="flex:1;background:var(--surf2);border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--t1);font-family:'Inter',sans-serif;outline:none;min-width:0" aria-label="Quick add task">
-            <button onclick="quickAdd({key:'Enter'})" style="background:var(--acc);color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:13px;font-weight:700;cursor:pointer" aria-label="Add task">Add</button>
+        <div id="quickAddPop" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surf);border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:200;min-width:200px;">
+          <div style="font-size:11px;font-weight:700;color:var(--t3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Create new…</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <button onclick="_closeQuickPop();openTaskModal()" style="display:flex;align-items:center;gap:8px;background:none;border:none;padding:7px 8px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--t1);text-align:left;width:100%;transition:background .1s" onmouseover="this.style.background='var(--surf2)'" onmouseout="this.style.background='none'">✅ Task</button>
+            <button onclick="_closeQuickPop();openCallModal()" style="display:flex;align-items:center;gap:8px;background:none;border:none;padding:7px 8px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--t1);text-align:left;width:100%;transition:background .1s" onmouseover="this.style.background='var(--surf2)'" onmouseout="this.style.background='none'">📞 Call</button>
+            <button onclick="_closeQuickPop();newNote()" style="display:flex;align-items:center;gap:8px;background:none;border:none;padding:7px 8px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--t1);text-align:left;width:100%;transition:background .1s" onmouseover="this.style.background='var(--surf2)'" onmouseout="this.style.background='none'">📝 Note</button>
+            <button onclick="_closeQuickPop();openEventModal()" style="display:flex;align-items:center;gap:8px;background:none;border:none;padding:7px 8px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--t1);text-align:left;width:100%;transition:background .1s" onmouseover="this.style.background='var(--surf2)'" onmouseout="this.style.background='none'">📅 Event</button>
+            <button onclick="_closeQuickPop();openProjModal()" style="display:flex;align-items:center;gap:8px;background:none;border:none;padding:7px 8px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--t1);text-align:left;width:100%;transition:background .1s" onmouseover="this.style.background='var(--surf2)'" onmouseout="this.style.background='none'">📁 Project</button>
           </div>
         </div>
       </div>
@@ -1255,13 +1239,6 @@ body.dark body.dark body.dark body.dark body.dark body.dark
     </div>
   </header>
   <!-- Cloud Sync Bar -->
-  <div class="sync-bar" id="syncBar">
-    <span class="sync-bar-label">🔗 Auto-Sync</span>
-    <div class="sync-dot" id="syncDot"></div>
-    <button class="btn bg btn-xs" onclick="openSyncModal()" title="Share & sync your data across devices">Share / Sync</button>
-    <button class="btn bg btn-xs" onclick="pullFromCloud()" id="pullBtn" title="Pull latest data from cloud" style="display:none">⬇ Pull</button>
-    <span class="sync-info" id="syncInfo">Not synced yet</span>
-  </div>
 
   <div class="overdue-banner" id="overdueBanner" onclick="nav('tasks',null)">⚠️ <span id="overdueText"></span> — click to view</div>
   <div class="content" id="mainContent">
@@ -1358,19 +1335,14 @@ body.dark body.dark body.dark body.dark body.dark body.dark
               </div>
             </div>
           </div>
-          <!-- Today's Calls widget -->
-          <div class="card" style="margin-top:10px" id="dw-calls">
-            <div class="ch"><div class="ct">📞 Today's Calls</div><button class="btn bg btn-xs" onclick="nav('calls',null)">All Calls</button></div>
-            <div class="cb" style="padding:8px 14px"><div id="todayCallsList"></div></div>
-          </div>
-          <!-- Pinned Notes below Calls -->
+          <!-- Pinned Notes below Matrix -->
           <div class="card" style="margin-top:10px">
             <div class="ch"><div class="ct">📌 Pinned Notes</div><button class="btn bg btn-xs" onclick="nav('notes',null)">Notes</button></div>
             <div class="cb"><div id="pinnedNotes"></div></div>
           </div>
           <!-- Upcoming Events below Pinned Notes -->
           <div class="card" style="margin-top:10px">
-            <div class="ch"><div class="ct">🗓 Upcoming Events</div><button class="btn bg btn-xs" onclick="nav('calendar',null)">Calendar</button></div>
+            <div class="ch"><div class="ct">🗓 Upcoming Events</div><button class="btn bg btn-xs" onclick="nav('schedule',null)">Schedule</button></div>
             <div class="cb"><div id="upcomingEvs"></div></div>
           </div>
         </div>
@@ -1438,6 +1410,8 @@ body.dark body.dark body.dark body.dark body.dark body.dark
           <button class="ftab" onclick="setTF('pending',this)">Pending</button>
           <button class="ftab" onclick="setTF('high',this)">High Priority</button>
           <button class="ftab" onclick="setTF('archived',this)">✅ Completed</button>
+          <button class="ftab" onclick="setTF('byperson',this)" title="Filter by person">👤 By Person</button>
+          <button class="ftab" onclick="setTF('bydept',this)" title="Filter by department">🏢 By Dept</button>
           <button class="ftab" id="hideCompBtn" onclick="toggleHideComp(this)" title="Toggle completed visibility" style="margin-left:6px;font-size:11px">👁 Hide Done</button>
         </div>
         <button class="btn bp btn-sm" style="margin-left:auto" onclick="openTaskModal()">+ Task</button>
@@ -1590,131 +1564,149 @@ body.dark body.dark body.dark body.dark body.dark body.dark
     </div>
 
     <!-- DAILY PLANNER -->
-    <div class="view" id="view-daily">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px">
-        <div style="display:flex;gap:6px">
-          <button class="btn bg btn-sm" onclick="changeDay(-1)">‹</button>
-          <button class="btn bg btn-sm" onclick="goTodayD()">Today</button>
-          <button class="btn bg btn-sm" onclick="changeDay(1)">›</button>
+    <!-- SCHEDULE (merged Calendar + Daily + Planner) -->
+    <div class="view" id="view-schedule">
+      <!-- Tab bar -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+        <div class="ftabs" id="schedTabs">
+          <button class="ftab" id="sched-tab-day" onclick="setSchedView('day',this)">Day</button>
+          <button class="ftab active" id="sched-tab-week" onclick="setSchedView('week',this)">Week</button>
+          <button class="ftab" id="sched-tab-month" onclick="setSchedView('month',this)">Month</button>
         </div>
-        <div style="font-size:14px;font-weight:800;text-align:center" id="dailyTitle"></div>
-        <button class="btn bp btn-sm" onclick="openDailyModal()">+ Entry</button>
-      </div>
-      <div class="daily-layout">
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="mini-cal" id="dailyMiniCal"></div>
-          <div class="card">
-            <div class="ch"><div class="ct">🏆 Top 3 Today</div></div>
-            <div class="cb"><div id="dTop3" style="display:flex;flex-direction:column;gap:6px"></div></div>
-          </div>
-          <div class="card">
-            <div class="ch"><div class="ct">📋 Tasks Due Today</div></div>
-            <div class="cb"><div id="dTasksDue" style="display:flex;flex-direction:column;gap:5px"></div></div>
-          </div>
+        <div style="display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;align-items:center">
+          <button class="btn bg btn-sm" id="schedPrev" onclick="schedNav(-1)">‹</button>
+          <button class="btn bg btn-sm" id="schedToday" onclick="schedGoToday()">Today</button>
+          <button class="btn bg btn-sm" id="schedNext" onclick="schedNav(1)">›</button>
+          <span style="font-size:14px;font-weight:800" id="schedTitle"></span>
         </div>
-        <div class="tl-wrap" id="timeline"></div>
+        <button class="btn bp btn-sm" onclick="schedNewAction()">+ Add</button>
+        <button class="btn bg btn-sm" onclick="exportAllEvents()">⬇ Export</button>
+        <button class="btn bg btn-sm" onclick="_icalImportClick()" title="Import .ics">📥 Import</button>
+        <input type="file" id="icalFileInput" accept=".ics" style="display:none" onchange="_icalImportFile(event)">
       </div>
-    </div>
 
-    <!-- CALENDAR -->
-    <div class="view" id="view-calendar">
-      <div id="icalHelpBanner" style="display:none;background:var(--acc-l);border:1px solid var(--acc);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12.5px;color:var(--acc)">
-        <strong>📥 How to import your calendar:</strong><br>
-        <b>Outlook:</b> File → Save Calendar → .ics &nbsp;|&nbsp;
-        <b>Google:</b> Settings → Import &amp; Export → Export &nbsp;|&nbsp;
-        <b>Apple:</b> File → Export → Export…
-        <button onclick="document.getElementById('icalHelpBanner').style.display='none'" style="float:right;background:none;border:none;cursor:pointer;font-size:14px;color:var(--acc)">✕</button>
-      </div>
-      <div class="cal-legend" id="calLegend">
-        <span style="font-size:11.5px;font-weight:700;color:var(--t3)">Legend:</span>
-        <div class="leg-item"><div class="leg-dot" style="background:var(--acc)"></div>General</div>
-        <div class="leg-item"><div class="leg-dot" style="background:var(--grn)"></div>Meeting</div>
-        <div class="leg-item"><div class="leg-dot" style="background:var(--amb)"></div>Deadline</div>
-        <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Urgent</div>
-        <div class="leg-item"><div class="leg-dot" style="background:var(--blu)"></div>Review</div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;flex-wrap:wrap">
-        <div style="display:flex;gap:6px">
-          <button class="btn bg btn-sm" onclick="changeMonth(-1)">‹</button>
-          <button class="btn bg btn-sm" onclick="goTodayCal()">Today</button>
-          <button class="btn bg btn-sm" onclick="changeMonth(1)">›</button>
-        </div>
-        <div style="font-size:15px;font-weight:800" id="calTitle"></div>
-        <div style="display:flex;gap:6px">
-          <div class="ftabs">
-            <button class="ftab active" onclick="setCalView('month',this)">Month</button>
-            <button class="ftab" onclick="setCalView('week',this)">Week</button>
+      <!-- Day panel (shown when tab=day) -->
+      <div id="sched-day-panel" style="display:none">
+        <div class="daily-layout">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="mini-cal" id="dailyMiniCal"></div>
+            <div class="card">
+              <div class="ch"><div class="ct">🏆 Top 3 Today</div></div>
+              <div class="cb"><div id="dTop3" style="display:flex;flex-direction:column;gap:6px"></div></div>
+            </div>
+            <div class="card">
+              <div class="ch"><div class="ct">📋 Tasks Due Today</div></div>
+              <div class="cb"><div id="dTasksDue" style="display:flex;flex-direction:column;gap:5px"></div></div>
+            </div>
           </div>
-          <button class="btn bp btn-sm" onclick="openEventModal()">+ Event</button>
-          <button class="btn bg btn-sm" onclick="exportAllEvents()">📅 Export</button>
-          <button class="btn bg btn-sm" onclick="_icalImportClick()" title="Import from Outlook, Google Calendar, Apple Calendar">📥 Import .ics</button>
-          <input type="file" id="icalFileInput" accept=".ics" style="display:none" onchange="_icalImportFile(event)">
+          <div class="tl-wrap" id="timeline"></div>
+        </div>
+        <div style="text-align:right;margin-top:8px">
+          <button class="btn bp btn-sm" onclick="openDailyModal()">+ Entry</button>
         </div>
       </div>
-      <div class="cal-layout">
-        <div><div id="calMain"></div></div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="mini-cal" id="calMiniCal"></div>
-          <div class="day-panel" id="dayPanel">
-            <div class="dp-head"><div class="dp-date" id="dpDate">Select a day</div><div class="dp-sub" id="dpSub"></div></div>
-            <div class="dp-body" id="dpBody"><div style="color:var(--t4);font-size:13px;padding:10px 0">Click a day to see details</div></div>
+
+      <!-- Week/Month calendar panel (shown when tab=week or month) -->
+      <div id="sched-cal-panel">
+        <div id="icalHelpBanner" style="display:none;background:var(--acc-l);border:1px solid var(--acc);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12.5px;color:var(--acc)">
+          <strong>📥 How to import your calendar:</strong><br>
+          <b>Outlook:</b> File → Save Calendar → .ics &nbsp;|&nbsp;
+          <b>Google:</b> Settings → Import &amp; Export → Export &nbsp;|&nbsp;
+          <b>Apple:</b> File → Export → Export…
+          <button onclick="document.getElementById('icalHelpBanner').style.display='none'" style="float:right;background:none;border:none;cursor:pointer;font-size:14px;color:var(--acc)">✕</button>
+        </div>
+        <div class="cal-legend" id="calLegend">
+          <span style="font-size:11.5px;font-weight:700;color:var(--t3)">Legend:</span>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--acc)"></div>General</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--grn)"></div>Meeting</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--amb)"></div>Deadline</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Urgent</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--blu)"></div>Review</div>
+        </div>
+        <div class="cal-layout">
+          <div><div id="calMain"></div></div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="mini-cal" id="calMiniCal"></div>
+            <div class="day-panel" id="dayPanel">
+              <div class="dp-head"><div class="dp-date" id="dpDate">Select a day</div><div class="dp-sub" id="dpSub"></div></div>
+              <div class="dp-body" id="dpBody"><div style="color:var(--t4);font-size:13px;padding:10px 0">Click a day to see details</div></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- PERSON TASKS -->
-    <div class="view" id="view-persontasks">
-      <div style="display:flex;gap:8px;margin-bottom:12px">
-        <button class="btn bg btn-sm" id="personListToggle" onclick="togglePersonList()">👥 Select Person</button>
-      </div>
-      <div class="person-tasks-layout">
-        <div class="person-list-panel" id="personListPanel"></div>
-        <div id="personTasksMain"><div style="text-align:center;padding:40px;color:var(--t4)"><div style="font-size:32px;margin-bottom:8px">👤</div><div style="font-weight:600">Select a person</div></div></div>
-      </div>
-    </div>
+    <!-- persontasks now lives as a tab inside view-team -->
+    <div class="view" id="view-persontasks" style="display:none"></div>
 
     <!-- TEAM -->
     <div class="view" id="view-team">
+      <!-- Top-level tabs: People | Departments | Person Tasks -->
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;flex-wrap:wrap">
-        <div class="ftabs">
-          <button class="ftab active" onclick="setTmF('all',this)">All</button>
-          <button class="ftab" onclick="setTmF('dept',this)">By Dept</button>
+        <div class="ftabs" id="teamMainTabs">
+          <button class="ftab active" id="team-tab-people" onclick="setTeamTab('people',this)">👥 People</button>
+          <button class="ftab" id="team-tab-depts" onclick="setTeamTab('depts',this)">🏢 Departments</button>
+          <button class="ftab" id="team-tab-persontasks" onclick="setTeamTab('persontasks',this)">📋 By Person</button>
         </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      </div>
+
+      <!-- People sub-panel -->
+      <div id="team-panel-people">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;flex-wrap:wrap">
+          <div class="ftabs">
+            <button class="ftab active" onclick="setTmF('all',this)">All</button>
+            <button class="ftab" onclick="setTmF('dept',this)">By Dept</button>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+            <div class="sort-bar" style="margin-bottom:0">
+              <span class="sort-bar-label">Sort:</span>
+              <button class="sort-btn active" onclick="setPeopleSort('name',this)">Name</button>
+              <button class="sort-btn" onclick="setPeopleSort('dept',this)">Dept</button>
+              <button class="sort-btn" onclick="setPeopleSort('tasks',this)">Tasks</button>
+            </div>
+            <button class="export-btn" onclick="exportSection('people')">📊 Export</button>
+            <button class="btn bg btn-sm" onclick="downloadTemplate('people')">📥 Template</button>
+            <button class="btn bg btn-sm" onclick="triggerXlsxUpload('people')">📤 Import</button>
+            <button class="btn bp btn-sm" onclick="openPersonModal()">+ Person</button>
+          </div>
+        </div>
+        <div id="teamGrid" class="people-grid"></div>
+      </div>
+
+      <!-- Departments sub-panel -->
+      <div id="team-panel-depts" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;flex-wrap:wrap">
           <div class="sort-bar" style="margin-bottom:0">
             <span class="sort-bar-label">Sort:</span>
-            <button class="sort-btn active" onclick="setPeopleSort('name',this)">Name</button>
-            <button class="sort-btn" onclick="setPeopleSort('dept',this)">Dept</button>
-            <button class="sort-btn" onclick="setPeopleSort('tasks',this)">Tasks</button>
+            <button class="sort-btn active" onclick="setDeptSort('name',this)">Name</button>
+            <button class="sort-btn" onclick="setDeptSort('people',this)">People</button>
+            <button class="sort-btn" onclick="setDeptSort('tasks',this)">Tasks</button>
           </div>
-          <button class="export-btn" onclick="exportSection('people')">📊 Export</button>
-          <button class="btn bg btn-sm" onclick="downloadTemplate('people')">📥 Template</button>
-          <button class="btn bg btn-sm" onclick="triggerXlsxUpload('people')">📤 Import</button>
-          <button class="btn bp btn-sm" onclick="openPersonModal()">+ Person</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button class="export-btn" onclick="exportSection('departments')">📊 Export</button>
+            <button class="btn bg btn-sm" onclick="downloadTemplate('departments')">📥 Template</button>
+            <button class="btn bg btn-sm" onclick="triggerXlsxUpload('departments')">📤 Import</button>
+            <button class="btn bp btn-sm" onclick="openDeptModal()">+ Dept</button>
+          </div>
+        </div>
+        <div id="deptList"></div>
+      </div>
+
+      <!-- Person Tasks sub-panel -->
+      <div id="team-panel-persontasks" style="display:none">
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+          <button class="btn bg btn-sm" id="personListToggle" onclick="togglePersonList()">👥 Select Person</button>
+        </div>
+        <div class="person-tasks-layout">
+          <div class="person-list-panel" id="personListPanel"></div>
+          <div id="personTasksMain"><div style="text-align:center;padding:40px;color:var(--t4)"><div style="font-size:32px;margin-bottom:8px">👤</div><div style="font-weight:600">Select a person</div></div></div>
         </div>
       </div>
-      <div id="teamGrid" class="people-grid"></div>
     </div>
 
-    <!-- DEPARTMENTS -->
-    <div class="view" id="view-departments">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;flex-wrap:wrap">
-        <div class="sort-bar" style="margin-bottom:0">
-          <span class="sort-bar-label">Sort:</span>
-          <button class="sort-btn active" onclick="setDeptSort('name',this)">Name</button>
-          <button class="sort-btn" onclick="setDeptSort('people',this)">People</button>
-          <button class="sort-btn" onclick="setDeptSort('tasks',this)">Tasks</button>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <button class="export-btn" onclick="exportSection('departments')">📊 Export</button>
-          <button class="btn bg btn-sm" onclick="downloadTemplate('departments')">📥 Template</button>
-          <button class="btn bg btn-sm" onclick="triggerXlsxUpload('departments')">📤 Import</button>
-          <button class="btn bp btn-sm" onclick="openDeptModal()">+ Dept</button>
-        </div>
-      </div>
-      <div id="deptList"></div>
-    </div>
+    <!-- DEPARTMENTS legacy view (kept for nav redirect) -->
+    <div class="view" id="view-departments" style="display:none"></div>
 
 
     <!-- CUSTOMERS -->
@@ -1797,6 +1789,8 @@ body.dark body.dark body.dark body.dark body.dark body.dark
           <option value="0">All time</option>
         </select>
       </div>
+      <!-- Headline insight -->
+      <div id="anaHeadline" style="margin-bottom:12px;padding:12px 16px;background:var(--acc-l);border:1.5px solid var(--acc);border-radius:var(--r);font-size:13px;font-weight:600;color:var(--acc);display:none"></div>
       <!-- Key metrics -->
       <div class="metric-row">
         <div class="mc2"><div class="ml">Completed</div><div class="mv" id="m-done">0</div></div>
@@ -1831,31 +1825,10 @@ body.dark body.dark body.dark body.dark body.dark body.dark
 
 
     <!-- UNIFIED PLANNER -->
-    <div class="view" id="view-planner">
-      <div class="planner-tabs">
-        <button class="planner-tab active" id="pt-month" onclick="setPlannerView('month',this)">📅 Month</button>
-        <button class="planner-tab" id="pt-week" onclick="setPlannerView('week',this)">📊 Week</button>
-        <button class="planner-tab" id="pt-day" onclick="setPlannerView('day',this)">📋 Day</button>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="display:flex;gap:6px;align-items:center">
-          <button class="ib" id="plannerPrev" onclick="plannerNav(-1)">‹</button>
-          <div style="font-size:15px;font-weight:800;min-width:160px;text-align:center" id="plannerTitle"></div>
-          <button class="ib" id="plannerNext" onclick="plannerNav(1)">›</button>
-          <button class="btn bg btn-xs" onclick="plannerGoToday()">Today</button>
-        </div>
-        <div style="display:flex;gap:6px">
-          <button class="btn bp btn-sm" onclick="openEventModal()">+ Event</button>
-          <button class="btn bg btn-sm" onclick="openTaskModal()">+ Task</button>
-        </div>
-      </div>
-      <div class="planner-layout">
-        <div id="plannerMain"></div>
-        <div class="unscheduled-panel">
-          <h4>📋 Unscheduled Tasks</h4>
-          <div id="unschedList"></div>
-        </div>
-      </div>
+    <!-- PLANNER redirects to schedule — legacy view kept for JS compatibility -->
+    <div class="view" id="view-planner" style="display:none">
+      <div id="plannerMain"></div>
+      <div id="unschedList"></div>
     </div>
 
 
@@ -2005,8 +1978,8 @@ body.dark body.dark body.dark body.dark body.dark body.dark
   <div class="mob-nav-inner">
     <div class="mn-item active" id="mn-dashboard" onclick="nav('dashboard',null);setMobNav('dashboard')"><div class="mn-ico">🏠</div><span>Home</span></div>
     <div class="mn-item" id="mn-tasks" onclick="nav('tasks',null);setMobNav('tasks')"><div class="mn-ico">✅</div><span>Tasks</span></div>
-    <div class="mn-item" id="mn-calendar" onclick="nav('calendar',null);setMobNav('calendar')"><div class="mn-ico">📅</div><span>Calendar</span></div>
-    <div class="mn-item" id="mn-notes" onclick="nav('notes',null);setMobNav('notes')"><div class="mn-ico">📝</div><span>Notes</span></div>
+    <div class="mn-item" id="mn-calls" onclick="nav('calls',null);setMobNav('calls')"><div class="mn-ico">📞</div><span>Calls</span></div>
+    <div class="mn-item" id="mn-schedule" onclick="nav('schedule',null);setMobNav('schedule')"><div class="mn-ico">📅</div><span>Schedule</span></div>
     <div class="mn-item" id="mn-more" onclick="toggleMorePanel()"><div class="mn-ico">⋯</div><span>More</span></div>
   </div>
 </nav>
@@ -2016,15 +1989,12 @@ body.dark body.dark body.dark body.dark body.dark body.dark
 <div class="mn-more-panel" id="morePanel">
   <div class="mn-more-grid">
     <div class="mn-more-item" onclick="nav('projects',null);closeMorePanel();setMobNav('projects')"><div class="mi-ico">📁</div>Projects</div>
-    <div class="mn-more-item" onclick="nav('daily',null);closeMorePanel();setMobNav('daily')"><div class="mi-ico">📋</div>Daily</div>
-    <div class="mn-more-item" onclick="nav('persontasks',null);closeMorePanel();setMobNav('persontasks')"><div class="mi-ico">👤</div>Person</div>
-    <div class="mn-more-item" onclick="nav('depttasks',null);closeMorePanel();setMobNav('depttasks')"><div class="mi-ico">🏢</div>Dept Tasks</div>
+    <div class="mn-more-item" onclick="nav('notes',null);closeMorePanel();setMobNav('notes')"><div class="mi-ico">📝</div>Notes</div>
     <div class="mn-more-item" onclick="nav('team',null);closeMorePanel();setMobNav('team')"><div class="mi-ico">👥</div>People</div>
-    <div class="mn-more-item" onclick="nav('departments',null);closeMorePanel();setMobNav('departments')"><div class="mi-ico">🏢</div>Depts</div>
-    <div class="mn-more-item" onclick="nav('customers',null);closeMorePanel();setMobNav('customers')"><div class="mi-ico">🏢</div>Customers</div>
+    <div class="mn-more-item" onclick="nav('customers',null);closeMorePanel();setMobNav('customers')"><div class="mi-ico">🤝</div>Customers</div>
     <div class="mn-more-item" onclick="nav('analytics',null);closeMorePanel();setMobNav('analytics')"><div class="mi-ico">📊</div>Analytics</div>
     <div class="mn-more-item" onclick="nav('trash',null);closeMorePanel();setMobNav('trash')"><div class="mi-ico">🗑</div>Trash</div>
-    <div class="mn-more-item" onclick="nav('audit',null);closeMorePanel();setMobNav('audit')"><div class="mi-ico">📋</div>Audit</div>
+    <div class="mn-more-item" onclick="nav('admin',null);closeMorePanel();setMobNav('admin')"><div class="mi-ico">⚙️</div>Settings</div>
   </div>
 </div>
 
@@ -2359,43 +2329,50 @@ function fabAction(){const a=fabActions[currentView];if(a)a();}
 
 // ══ NAV ══
 let currentView='dashboard';
-const vTitles={dashboard:'Dashboard',analytics:'Analytics',tasks:'Tasks',projects:'Projects',notes:'Notes',calls:'Calls',daily:'Daily Planner',calendar:'Calendar',planner:'Planner',persontasks:'Person Tasks',depttasks:'Dept Tasks',team:'People',departments:'Departments',customers:'Customers',trash:'Trash',audit:'Audit Log'};
+const vTitles={dashboard:'Dashboard',analytics:'Analytics',tasks:'Tasks',projects:'Projects',notes:'Notes',calls:'Calls',schedule:'Schedule',daily:'Schedule',calendar:'Schedule',planner:'Schedule',persontasks:'Person Tasks',depttasks:'Dept Tasks',team:'People',departments:'Departments',customers:'Customers',trash:'Trash',audit:'Audit Log'};
 function nav(id,el){
-  // Auto-expand sidebar section containing this view
-  const _viewSection={tasks:'work',projects:'work',notes:'work',calls:'work',
-    daily:'schedule',calendar:'schedule',planner:'schedule',
-    team:'team',departments:'team',customers:'team',persontasks:'team',depttasks:'team',
-    dashboard:'overview',analytics:'overview',
-    trash:'system',audit:'system',admin:'system'};
-  const sec=_viewSection[id];
-  if(sec && _sbCol[sec]){_sbCol[sec]=false;localStorage.setItem('pc3_sbcol',JSON.stringify(_sbCol));_applySb();}
+  // Redirect legacy schedule-related views to unified schedule view
+  const _schedRedirect={daily:'day',calendar:'week',planner:'week'};
+  if(_schedRedirect[id]!==undefined){
+    const tabPref=_schedRedirect[id];
+    id='schedule';
+    setTimeout(()=>setSchedView(tabPref),0);
+  }
+  // Redirect legacy team sub-views to team with correct tab
+  const _teamRedirect={departments:'depts',persontasks:'persontasks',depttasks:'depts'};
+  if(_teamRedirect[id]!==undefined){
+    const tabPref=_teamRedirect[id];
+    id='team';
+    setTimeout(()=>setTeamTab(tabPref),0);
+  }
 
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById('view-'+id).classList.add('active');
+  const viewEl=document.getElementById('view-'+id);
+  if(viewEl) viewEl.classList.add('active');
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
-  if(el)el.classList.add('active');
-  else{const found=Array.from(document.querySelectorAll('.ni')).find(n=>n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+id+"'"));if(found)found.classList.add('active');}
+  if(el) el.classList.add('active');
+  else{
+    const found=Array.from(document.querySelectorAll('.ni')).find(n=>{
+      const oc=n.getAttribute('onclick')||'';
+      return oc.includes("'"+id+"'") || (id==='schedule' && oc.includes("'schedule'"));
+    });
+    if(found) found.classList.add('active');
+  }
   document.getElementById('pageTitle').textContent=vTitles[id]||id;
   currentView=id;
-  const btnMap={dashboard:'+ Task',tasks:'+ Task',projects:'+ Project',notes:'+ Note',calls:'+ Call',daily:'+ Entry',calendar:'+ Event',team:'+ Person',departments:'+ Dept',customers:'+ Customer'};
   const tb=document.getElementById('topBtn');
-  if(btnMap[id]){tb.style.display='';tb.textContent=btnMap[id];}else tb.style.display='none';
-  // FAB removed — + New button in topbar handles all actions
+  if(tb){ tb.style.display=''; tb.textContent='+ New'; }
   if(isMobile())closeSidebar();
   renderView(id);
 }
 function topAction(){
-  const a=fabActions[currentView];
-  if(a){ _closeQuickPop(); a(); return; }
-  // No page-specific action — show quick-add popover
+  // Always show the type picker — consistent + New behaviour regardless of current view
   const pop=document.getElementById('quickAddPop');
-  if(!pop)return;
+  if(!pop) return;
   const showing=pop.style.display!=='none';
   _closeQuickPop();
   if(!showing){
     pop.style.display='block';
-    setTimeout(()=>{ document.getElementById('quickInput')?.focus(); },50);
-    // Close on outside click
     setTimeout(()=>document.addEventListener('click',_quickPopOutside,{once:true}),10);
   }
 }
@@ -2411,7 +2388,7 @@ function _quickPopOutside(e){
 
 function renderView(id){
   updateStats();
-  ({dashboard:renderDashboard,tasks:renderTasks,projects:renderProjects,notes:renderNoteList,daily:renderDaily,calendar:renderCalendar,planner:renderPlanner,team:renderTeam,departments:renderDepts,customers:renderCustomers,calls:renderCalls,trash:renderTrash,audit:renderAudit,admin:renderAdmin,analytics:renderAnalytics,persontasks:renderPersonTasks,depttasks:renderDeptTasks})[id]?.();
+  ({dashboard:renderDashboard,tasks:renderTasks,projects:renderProjects,notes:renderNoteList,schedule:renderSchedule,team:renderTeam,departments:renderDepts,customers:renderCustomers,calls:renderCalls,trash:renderTrash,audit:renderAudit,admin:renderAdmin,analytics:renderAnalytics,persontasks:renderPersonTasks,depttasks:renderDeptTasks})[id]?.();
 }
 
 // ══ QUICK ADD ══
@@ -3071,7 +3048,17 @@ function toggleHideComp(el){
   el.classList.toggle('active', hideCompletedTasks);
   renderTasks();
 }
-function setTF(f,el){taskFilter=f;document.querySelectorAll('#taskFtabs .ftab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderTasks();}
+function setTF(f,el){
+  taskFilter=f;
+  document.querySelectorAll('#taskFtabs .ftab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  // Show person select when byperson active, dept select when bydept active
+  const personSel=document.getElementById('fpPerson');
+  const deptSel=document.getElementById('fpDept');
+  if(personSel) personSel.style.outline=(f==='byperson')?'2px solid var(--acc)':'';
+  if(deptSel) deptSel.style.outline=(f==='bydept')?'2px solid var(--acc)':'';
+  renderTasks();
+}
 let taskSortField='due',taskSortDir=1;
 function setTaskSort(f,el){taskSortField=f;document.querySelectorAll('#view-tasks .sort-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderTasks();}
 function toggleTaskSortDir(){taskSortDir*=-1;const btn=document.getElementById('ts-dir');btn.textContent=taskSortDir===1?'↑':'↓';btn.classList.add('active');renderTasks();}
@@ -3090,6 +3077,8 @@ function renderTasks(){
   else if(taskFilter==='done')list=list.filter(t=>t.done&&!t.archived);
   else if(taskFilter==='high')list=list.filter(t=>t.priority==='high'&&!t.archived);
   else if(taskFilter==='archived')list=list.filter(t=>t.archived);
+  else if(taskFilter==='byperson')list=list.filter(t=>!t.archived&&((t.personIds&&t.personIds.length>0)||(t.personId)));
+  else if(taskFilter==='bydept')list=list.filter(t=>!t.archived&&t.dept);
   else list=list.filter(t=>!t.archived);
   // Hide done (but not yet archived) tasks if toggle is on
   if(hideCompletedTasks && taskFilter!=='archived') list=list.filter(t=>!t.done);
@@ -3677,9 +3666,53 @@ function _parseIcal(text){
 }
 
 function renderCalendar(){renderCalMiniCal();if(calView==='month')renderMonthCal();else renderWeekCal();}
-function setCalView(v,el){calView=v;document.querySelectorAll('#view-calendar .ftab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderCalendar();}
+function setCalView(v,el){calView=v;document.querySelectorAll('#sched-cal-panel .ftab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderCalendar();}
 function changeMonth(d){calDate.setMonth(calDate.getMonth()+d);renderCalendar();}
 function goTodayCal(){calDate=new Date();selDay=todayStr();renderCalendar();}
+
+// ── SCHEDULE VIEW (unified Day / Week / Month) ──
+let _schedView='week'; // default tab
+function renderSchedule(){
+  setSchedView(_schedView);
+}
+function setSchedView(v){
+  _schedView=v;
+  // Update tab active states
+  ['day','week','month'].forEach(t=>{
+    const btn=document.getElementById('sched-tab-'+t);
+    if(btn) btn.classList.toggle('active',t===v);
+  });
+  const dayPanel=document.getElementById('sched-day-panel');
+  const calPanel=document.getElementById('sched-cal-panel');
+  if(!dayPanel||!calPanel) return;
+  if(v==='day'){
+    dayPanel.style.display='';
+    calPanel.style.display='none';
+    renderDaily();
+  } else {
+    dayPanel.style.display='none';
+    calPanel.style.display='';
+    // Map week/month to calView
+    calView=(v==='week')?'week':'month';
+    renderCalendar();
+  }
+  // Update page title
+  const titles={day:'Schedule — Day',week:'Schedule — Week',month:'Schedule — Month'};
+  const pt=document.getElementById('pageTitle');
+  if(pt) pt.textContent=titles[v]||'Schedule';
+}
+function schedNav(d){
+  if(_schedView==='day') changeDay(d);
+  else changeMonth(d);
+}
+function schedGoToday(){
+  if(_schedView==='day'){goTodayD();}
+  else{goTodayCal();}
+}
+function schedNewAction(){
+  if(_schedView==='day') openDailyModal();
+  else openEventModal();
+}
 function renderCalMiniCal(){
   const y=calDate.getFullYear(),m=calDate.getMonth();
   const first=new Date(y,m,1).getDay();const days=new Date(y,m+1,0).getDate();
@@ -3778,7 +3811,21 @@ function renderPersonDetail(){
 
 // ══ TEAM ══
 let tmFilter='all';
-function setTmF(f,el){tmFilter=f;document.querySelectorAll('#view-team .ftab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderTeam();}
+let _teamTab='people';
+function setTeamTab(tab, el){
+  _teamTab=tab;
+  document.querySelectorAll('#teamMainTabs .ftab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  else { const found=document.getElementById('team-tab-'+tab); if(found) found.classList.add('active'); }
+  ['people','depts','persontasks'].forEach(p=>{
+    const panel=document.getElementById('team-panel-'+p);
+    if(panel) panel.style.display=(p===tab)?'':'none';
+  });
+  if(tab==='people') renderTeam();
+  else if(tab==='depts') renderDepts();
+  else if(tab==='persontasks') renderPersonTasks();
+}
+function setTmF(f,el){tmFilter=f;document.querySelectorAll('#team-panel-people .ftab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderTeam();}
 let peopleSortField='name';
 function setPeopleSort(f,el){peopleSortField=f;document.querySelectorAll('#view-team .sort-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderTeam();}
 function renderTeam(){
@@ -4573,19 +4620,9 @@ function custHealthDot(c){
 }
 
 // ══ SIDEBAR COLLAPSE ══
-let _sbCol={...{overview:false,work:false,schedule:false,team:false,system:false},...JSON.parse(localStorage.getItem('pc3_sbcol')||'{}')};
-function toggleSbSec(id){
-  _sbCol[id]=!_sbCol[id];localStorage.setItem('pc3_sbcol',JSON.stringify(_sbCol));_applySb();
-}
-function _applySb(){
-  ['overview','work','schedule','team','system'].forEach(id=>{
-    const body=document.getElementById('sb-body-'+id);
-    const caret=document.getElementById('sb-caret-'+id);
-    if(body){body.classList.toggle('collapsed',!!_sbCol[id]);}
-    if(caret){caret.style.transform=_sbCol[id]?'rotate(-90deg)':'';}
-  });
-}
-_applySb();
+// Sidebar sections collapsed — simplified flat nav, no section toggling needed
+function toggleSbSec(){}
+function _applySb(){}
 
 // ══ DASHBOARD WIDGET TOGGLE ══
 const _WIDGETS={focus:'Focus Widget',stats:'Stats Row',glance:'Today at a Glance',top3:'Top 3 Priorities',duetoday:'Due Today',projects:'Project Progress',notes:'Pinned Notes',upcoming:'Upcoming Events'};
@@ -4801,11 +4838,13 @@ function renderMatrix(){
 }
 
 function toggleTasksMatrix(forceOpen){
-  const matrixEl = document.getElementById('tasksMatrixWrap');
-  if(!matrixEl) return;
+  const bodyEl = document.getElementById('tasksMatrixBody');
+  const caretEl = document.getElementById('matrixCaret');
+  if(!bodyEl) return;
   if(forceOpen !== undefined) _matrixOpen = !!forceOpen;
   else _matrixOpen = !_matrixOpen;
-  matrixEl.style.display = _matrixOpen ? 'block' : 'none';
+  bodyEl.classList.toggle('open', _matrixOpen);
+  if(caretEl) caretEl.style.transform = _matrixOpen ? 'rotate(90deg)' : '';
   if(_matrixOpen) renderMatrix();
 }
 // Make stats cards drill into filtered views
@@ -4844,6 +4883,21 @@ function renderAnalytics(){
   document.getElementById('m-done').textContent=done;
   document.getElementById('m-ontime').textContent=ontime+'%';
   document.getElementById('m-avg').textContent=people.length?Math.round(tasks.filter(t=>!t.archived).length/people.length):0;
+
+  // Headline insight
+  const hl=document.getElementById('anaHeadline');
+  if(hl){
+    const longOverdue=tasks.filter(t=>!t.done&&!t.archived&&t.due&&(new Date(td)-new Date(t.due))>14*86400000).length;
+    const highPending=tasks.filter(t=>!t.done&&!t.archived&&t.priority==='high').length;
+    let msg='';
+    if(longOverdue>0) msg=`⚠️ ${longOverdue} task${longOverdue>1?'s are':' is'} more than 2 weeks overdue — needs attention.`;
+    else if(highPending>3) msg=`🔴 ${highPending} high-priority tasks are still open. Consider delegating or rescheduling.`;
+    else if(ontime>=80) msg=`✅ Great pace — ${ontime}% of completed tasks were on time in this period.`;
+    else if(done===0) msg=`📋 No tasks completed in this period yet. Set due dates to track progress.`;
+    else msg=`📊 ${done} task${done>1?'s':''}  completed — ${ontime}% on time. ${overdue>0?overdue+' still overdue.':'All clear on overdue!'}`;
+    hl.textContent=msg;
+    hl.style.display=msg?'':'none';
+  }
 
   // Analytics filters
   const af=document.getElementById('anaFilters');
@@ -5652,12 +5706,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     plannerNi.addEventListener('dragleave',()=>plannerNi.classList.remove('drag-over'));
     plannerNi.addEventListener('drop',e=>{
       e.preventDefault();plannerNi.classList.remove('drag-over');
-      if(_dragItem){nav('planner',plannerNi);setTimeout(()=>renderPlanner(),100);}
+      if(_dragItem){nav('schedule',null);setTimeout(()=>renderPlanner(),100);}
     });
   }
 
-  // Make the Calendar nav item also a drop target (drops to today)
-  const calNi = Array.from(document.querySelectorAll('.ni')).find(n=>n.textContent.includes('Calendar'));
+  // Make the Schedule nav item also a drop target (drops to today)
+  const calNi = Array.from(document.querySelectorAll('.ni')).find(n=>n.textContent.includes('Schedule'));
   if(calNi){
     calNi.addEventListener('dragover',e=>{if(_dragItem){e.preventDefault();calNi.classList.add('drag-over');}});
     calNi.addEventListener('dragleave',()=>calNi.classList.remove('drag-over'));
@@ -5666,7 +5720,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       if(_dragItem){
         const td=todayStr();
         _dropOnDate(td);
-        nav('planner',null);
+        nav('schedule',null);
       }
     });
   }
@@ -6302,29 +6356,30 @@ function _reAuthAndPush(){
 }
 
 function driveForcePull(){
-  _confirm('Pull from Drive? This will overwrite your local data with the cloud version.',()=>{
-  if(_gAccessToken){
-    setSyncDot('syncing');
-    updateSyncInfo('Pulling from Drive…');
-    _driveLoad().then(()=>{
-      _showToast('Data pulled from Google Drive','success');
-      _updateDriveAdminStatus();
-    }).catch(e=>{
-      setSyncDot('error');
-      _showToast('Pull failed: '+(e?.message||'unknown error'),'error');
-      console.error('driveForcePull error',e);
-    });
-    return;
-  }
+  // Check sign-in first before showing confirm dialog
   const sess=localStorage.getItem(_G_SESSION_KEY);
-  if(!sess){ _showToast('Please sign in first to sync with Google Drive.','warning'); return; }
-  _showToast('Getting Drive access… pull will follow automatically.');
-  window._pendingPull=true;
-  const _req=()=>{
-    if(!_gTokenClient){ _initTokenClient(); setTimeout(_req,500); return; }
-    _gTokenClient.requestAccessToken({prompt:''});
-  };
-  _req();
+  if(!sess && !_gAccessToken){ _showToast('Please sign in first to sync with Google Drive.','warning'); return; }
+  _confirm('Pull from Drive? This will overwrite your local data with the cloud version.',()=>{
+    if(_gAccessToken){
+      setSyncDot('syncing');
+      updateSyncInfo('Pulling from Drive…');
+      _driveLoad().then(()=>{
+        _showToast('Data pulled from Google Drive','success');
+        _updateDriveAdminStatus();
+      }).catch(e=>{
+        setSyncDot('error');
+        _showToast('Pull failed: '+(e?.message||'unknown error'),'error');
+        console.error('driveForcePull error',e);
+      });
+      return;
+    }
+    _showToast('Getting Drive access… pull will follow automatically.');
+    window._pendingPull=true;
+    const _req=()=>{
+      if(!_gTokenClient){ _initTokenClient(); setTimeout(_req,500); return; }
+      _gTokenClient.requestAccessToken({prompt:''});
+    };
+    _req();
   });
 }
 function _updateDriveAdminStatus(){
@@ -6525,15 +6580,12 @@ function _scheduleDriveSync(){
 }
 
 function setSyncDot(state){
-  const d=document.getElementById('syncDot');
-  if(d) d.className='sync-dot'+(state?' '+state:'');
+  // syncDot in topbar pill only (sync bar removed)
   const dt=document.getElementById('syncDotTopbar');
   if(dt) dt.className='sync-dot'+(state?' '+state:'');
 }
 
 function updateSyncInfo(msg){
-  const el=document.getElementById('syncInfo');
-  if(el) el.textContent=msg||'';
   const lbl=document.getElementById('syncLabelTopbar');
   if(lbl) lbl.textContent=msg||'';
 }
@@ -6739,14 +6791,7 @@ function init(){
   document.getElementById('todayLbl').textContent=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
   renderView('dashboard');
   checkSyncParam();
-  // W3-3: Pull-to-refresh on mobile
-  let _ptr_startY=0,_ptr_pulling=false;
-  const _content=document.getElementById('mainContent');
-  if(_content){
-    _content.addEventListener('touchstart',e=>{if(window.scrollY===0)_ptr_startY=e.touches[0].clientY;},{passive:true});
-    _content.addEventListener('touchmove',e=>{const dy=e.touches[0].clientY-_ptr_startY;if(dy>60&&window.scrollY===0){_ptr_pulling=true;}},{passive:true});
-    _content.addEventListener('touchend',()=>{if(_ptr_pulling){_ptr_pulling=false;driveForcePull();}});
-  }
+  // Pull-to-refresh removed — caused repeated Drive popup on mobile scroll
   // Show PWA banner on mobile after 3s
   // PWA install banner
   if(!window.navigator.standalone && !localStorage.getItem('pc3_pwa_dismissed')){
